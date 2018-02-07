@@ -73,7 +73,7 @@ Il est possible de changer le répertoire courant du processus ou du shell en ut
   - `cd(1posix)`_ .. : remonte dans le répertoire prédécesseur dans l'arborescence des fichiers.
 
 La commande `mkdir(1)`_ permet de créer un répertoire. Elle prend comme argument le nom du répertoire à créer.
-La commande `rmdir(1)`_ supprime un répertoire qui doit être vide vide. Pour effacer un répertoire et tous les fichiers qu'il contient, il faut utiliser la commande `rm(1)`_ avec l'option ``-r``. Ainsi, ``rm -r /tmp/t`` supprime le répertoire ``/tmp/t`` ainsi que tous les fichiers et sous-répertoire se trouvant dans ce répertoire. 
+La commande `rmdir(1)`_ supprime un répertoire qui doit être vide. Pour effacer un répertoire et tous les fichiers qu'il contient, il faut utiliser la commande `rm(1)`_ avec l'option ``-r``. Ainsi, ``rm -r /tmp/t`` supprime le répertoire ``/tmp/t`` ainsi que tous les fichiers et sous-répertoire se trouvant dans ce répertoire. 
 
 La commande `ls(1)`_ permet de connaître l'ensemble des fichiers et répertoires contenus dans le répertoire courant. Elle supporte plusieurs options dont les plus utiles sont :
 	
@@ -287,11 +287,11 @@ Obtenir des informations
 					* -l : nombre de lignes
 	   				* -c : nombre d'octets
 	   				* -m : nombre de caractères
-	   				* -L : la longueur de la plus longue d'une ligne
+	   				* -L : la longueur de la plus longue ligne
 	   				* -w : le nombre de mots
 
-Manipulation communes aux répertoires et fichiers
--------------------------------------------------
+Manipulations communes aux répertoires et fichiers
+--------------------------------------------------
 
 Copier
 ^^^^^^
@@ -456,7 +456,7 @@ Les permissions accordées à ces trois classes sont :
 Obtenir des informations
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-`stat(1)`_ [-opt] filename	donne des informations sur les métadonnées associéées au fichier
+`stat(1)`_ [-opt] filename	donne des informations sur les métadonnées associées au fichier
 					* -f : affiche l'état du systeme de fichiers plutot que celui du fichier
 					* -L : suit les liens du fichier
 					* -t : affiche les informations de façon concise
@@ -561,8 +561,8 @@ Symboles pour les commandes
 	``&`` 		exécute une commande en arrière plan
 	``;`` 		sépare des instructions sur une seule ligne
 
-        ``cmd1 && cmd 2``		cmd2 n'est exécuté que si cmd1 réussi
-        ``cmd1 || cmd 2``		cmd2 n'est exécuté que si cmd1 échoue
+        ``cmd1 && cmd2``		cmd2 n'est exécuté que si cmd1 réussi
+        ``cmd1 || cmd2``		cmd2 n'est exécuté que si cmd1 échoue
 
 	``\``		annule l'effet du caractère spécial suivant
 	``" "``		annule l'effet de tout les caractères spéciaux entre les guillemets, sauf ``$`` et ``\``
@@ -657,7 +657,7 @@ Exemples :
       $ bg 1
       #nous relançons yes en arrière plan. on peut utiliser son nom comme son numéro avec la commande bg et fg
       [1]+ yes > \dev\null &
-      #yes set remix en route
+      #yes est remis en route
 
       $ jobs
       #nous vérifions le statut de yes avec jobs
@@ -679,7 +679,7 @@ Exemples :
       $ jobs
       #nous vérifions les jobs
       [1]+  Terminated: 15          yes > \dev\null
-      #yes set marqué Terminated
+      #yes est marqué Terminated
 
       $ jobs
       #un deuxième appel à jobs nous affiche une liste vide
@@ -702,7 +702,7 @@ Modification d'un fichier
 				
 				* -n : n'affiche aucune ligne, sauf celle spécifié avec la commande p
 				* -e : specifie les commandes à appliquer sur le fichier
-					Note : I faut mieux encadrer la commande avec des ' ou des " 
+					Note : Il vaut mieux encadrer la commande avec des ' ou des " 
 				* -f : les commandes sont lu à partir d'un fichier
 
 Pour bien comprendre la puissance de sed, il est important de comprendre son fonctionnement. sed fonctionne en 4 étapes :
@@ -754,19 +754,19 @@ Une commande d'un 'prog' est constitué d'un adressage, c-à-d les lignes sur le
 
 	* p 		: affiche les lignes
 	* d 		: supprime les lignes
-	* y/l1/l2 	: remplace les caractères de la première liste par les caractère de la seconde
+	* y/l1/l2 	: remplace les caractères de la première liste par les caractères de la seconde
 	* s/mtf/sbst/ 	: substitue le mtf par le sbst
 				  Note : Par défaut seule la première occurence est remplacé. 
-					Pour toutes les remplacées : /s/motif/substitut/g
+					Pour toutes les remplacer : /s/motif/substitut/g
 					Pour en remplacer 4	   : /s/motif/substitut/4
 
 	* N		: charge une ligne supplémentaire dans l'espace de travail
 	* D		: Efface l'espace de travail jusqu'au premier saut de ligne incorporé
-	* b		: Reviens 
+	* b		: Revient 
 
 	Pour faire des commandes groupées, placer vos commandes entre {} spérarées par ;.
 
-	Quel illustrations basiques :
+	Quelques illustrations basiques :
 
 	.. code-block:: console
 
@@ -784,7 +784,7 @@ Une commande d'un 'prog' est constitué d'un adressage, c-à-d les lignes sur le
 
 		$ sed -e 's/^#//' test.txt		= Supprime le commentaire en début de ligne, puisqu'il est remplacé par ''
 		
-		$ sed -e 'y/éèê/eee/' test.txt		= Retire les accents, puisqu'ils sont remplacé par 'e'
+		$ sed -e 'y/éèê/eee/' test.txt		= Retire les accents, puisqu'ils sont remplacés par 'e'
 
 		$ sed -e ' 4,7 {y/éèê/eee/;s/e/[]/} test.txt 	= Remplace les accents, puis remplace les "e" par "[]"
 	
@@ -828,13 +828,13 @@ Pour contrecarrer ce problème, il est possible de placer dans le script un labe
 	Explication : Un label est placé au début des commandes. La première commande remplace le premier [eo] trouvé. La seconde retourne au label si il reste encore un [eo] dans la ligne. Une fois qu'il n'y a plus de [eo], la ligne suivant est chargée. 
 
 
-Appliqué des actions à un fichier
+Appliquer des actions à un fichier
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 `awk(1)`_ [-Fs] [-v variable] [-f fichier de commandes] 'program' fichier
   		* -F : Spécifie les séparateurs de champs
   		* -v : Définie une variable utilisée à l'intérieur du programme.
-  		* -f : Les commandes sont lu à partir d'un fichier. 
+  		* -f : Les commandes sont lues à partir d'un fichier. 
 
 Note : awk est une commande extrement puissante, elle permet d'effectuer une multitude d'opération. Son utilisation est complexe et elle est bien détaillé sur ce site : http://www.shellunix.com/awk.html. Je vous encourage à le lire.
 
@@ -866,7 +866,7 @@ Tapez des commandes dans la console est inévitable lors d'opérations avancées
 Premier script
 ^^^^^^^^^^^^^^
 
-Nous allons écrire un premier script bash pour présenter la manière générale de procéder avec un tel outils. Les scripts commencent toujours par la ligne ``#!/bin/bash`` qui indique à l'exécution qu'il s'agit d'un script et avec quel interpréteur le lire (ici bash).
+Nous allons écrire un premier script bash pour présenter la manière générale de procéder avec un tel outil. Les scripts commencent toujours par la ligne ``#!/bin/bash`` qui indique à l'exécution qu'il s'agit d'un script et avec quel interpréteur le lire (ici bash).
 
     .. code-block:: bash
 
@@ -889,7 +889,7 @@ Après il ne reste plus qu'à l'exécuter et observer le résultat.
 Les variables
 ^^^^^^^^^^^^^
 
-Bash permet l'utilisation de variables dans les scripts. Il peut s'agir de simples variables ou, de tableaux. Bash n'est pas un langage typé, des Int ou des String n'existe pas, toutes les variables sont traitées de la même façon. Pour illustrer ceci nous allons écrire le script `variables.sh <https://raw.github.com/HappyRave/SystInfo1/master/valgrind/variables.sh>`_
+Bash permet l'utilisation de variables dans les scripts. Il peut s'agir de simples variables ou de tableaux. Bash n'est pas un langage typé, les Int ou les String n'existent pas, toutes les variables sont traitées de la même façon. Pour illustrer ceci nous allons écrire le script `variables.sh <https://raw.github.com/HappyRave/SystInfo1/master/valgrind/variables.sh>`_
 
     .. code-block:: bash
 
@@ -904,7 +904,7 @@ Bash permet l'utilisation de variables dans les scripts. Il peut s'agir de simpl
       #on accède à une variable simple avec un $ devant son nom
       #on accède à un élément d'un tableau avec un $ devant et des {} autour
       echo $bonjour${nombre[*]}
-      #le caractère * indique qu'on veut utiliser tout les éléments du tableau (séparer
+      #le caractère * indique qu'on veut utiliser tout les éléments du tableau (séparés
       #par un espace à chaque fois)
 
 Ce script produit comme résultat
@@ -931,7 +931,7 @@ Dans le but de tester ces boucles nous utiliserons un petit programme en C, `ret
       #!/bin/bash
 
       if ./return 0; then
-      #la valeur de renvoi sera 0 dans la boucle sera exécutée
+      #la valeur de renvoi sera 0 
       echo "Hello"
       fi
 
